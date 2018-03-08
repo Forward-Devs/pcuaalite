@@ -1,0 +1,127 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use {{modelo}};
+use Log;
+use Auth;
+use Carbon;
+
+class {{tabla}}Controller extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+        return view('pca.{{tabla}}.inicio');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+        return view('pca.{{tabla}}.nuevo');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+        {{modelo}}::create($request->all());
+        $log = new Log();
+        $log->user_id = Auth::user()->id;
+        $log->es = 'Ha creado un {{modelo}}';
+        $log->en = 'Ha creado un {{modelo}} ';
+        $log->fr = 'Ha creado un {{modelo}}';
+        $log->created_at = Carbon::now()->toDateTimeString();
+        $log->save();
+        return redirect('pca/{{tabla}}')->with('message', 'Create un {{modelo}}.');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+        $modelo = {{modelo}}::find($id);
+        return view('pca.{{tabla}}.ver', compact('modelo'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $modelo = {{modelo}}::find($id);
+        return view('pca.{{tabla}}.editar', compact('modelo'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+        $modelo = {{modelo}}::find($id);
+        $modelo->updated_at = Carbon::now()->toDateTimeString();
+        $modelo->save();
+        if ($modelo->update($request->all())) {
+          $log = new Log();
+          $log->user_id = Auth::user()->id;
+          $log->es = 'Ha editado un {{modelo}} #'.$modelo->id;
+          $log->en = 'Ha editado un {{modelo}} #'.$modelo->id;
+          $log->fr = 'Ha editado un {{modelo}} #'.$modelo->id;
+          $log->created_at = Carbon::now()->toDateTimeString();
+          $log->save();
+        }
+        return redirect('pca/{{tabla}}')->with('message', 'Editaste un {{modelo}} #'.$modelo->id.'.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+        $modelo = {{modelo}}::find($id);
+
+        if ($modelo->delete()) {
+          $log = new Log();
+          $log->user_id = Auth::user()->id;
+          $log->es = 'Ha borrado el {{modelo}} #'.$id;
+          $log->en = 'Ha borrado el {{modelo}} #'.$id;
+          $log->fr = 'Ha borrado el {{modelo}} #'.$id;
+          $log->created_at = Carbon::now()->toDateTimeString();
+          $log->save();
+        }
+        return redirect('pca/{{tabla}}')->with('message', 'Borraste el {{modelo}} #'.$id.'.');
+    }
+}
