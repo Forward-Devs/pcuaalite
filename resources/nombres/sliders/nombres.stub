@@ -1,0 +1,6 @@
+
+$nombres = array_add($nombres, 'id', 'ID');
+$nombres = array_add($nombres, 'imagen', 'Imagen');
+$nombres = array_add($nombres, 'redireccion', 'Redireccion');
+$nombres = array_add($nombres, 'created_at', 'Creado');
+$nombres = array_add($nombres, 'updated_at', 'Actualizado');

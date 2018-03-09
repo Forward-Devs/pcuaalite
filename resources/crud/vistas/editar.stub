@@ -1,0 +1,40 @@
+@extends('layouts.admin')
+
+@section('content')
+  @php
+    $columnas = Schema::getColumnListing('{{tabla}}');
+    $nombres = array();
+    {{nombres}}
+  @endphp
+  <div class="m-portlet m-portlet--tab">
+    <div class="m-portlet__head">
+      <div class="m-portlet__head-caption">
+        <div class="m-portlet__head-title">
+          <h3 class="m-portlet__head-text">Editar {{modelo}}</h3>
+        </div>
+      </div>
+    </div>
+    <form class="m-form m-form--fit m-form--label-align-right" action="{{route('{{tabla}}.update', ['id' => $modelo->id])}}"  method="post">
+      {{ csrf_field() }}
+      {{ method_field('PUT') }}
+      <div class="m-portlet__body">
+        @foreach ($columnas as $columna)
+          @if ($columna != 'id' && $columna != 'created_at'&& $columna != 'updated_at')
+            <div class="form-group m-form__group">
+              <label for="p_es">{{$nombres[$columna]}}</label>
+              <input class="form-control m-input" type="text" name="{{$columna}}" value="{{$modelo->$columna}}">
+              <span class="m-form__help">Escriba el valor de: {{$nombres[$columna]}}</span>
+            </div>
+          @endif
+        @endforeach
+
+
+      </div>
+      <div class="m-portlet__foot m-portlet__foot--fit">
+        <div class="m-form__actions">
+          <button type="submit" class="btn btn-primary">Editar {{modelo}}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+@endsection
