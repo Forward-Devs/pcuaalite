@@ -1,301 +1,174 @@
 @extends('layouts.plantilla')
+@section('css')
+  <style media="screen">
+
+.perfil{
+background: -webkit-radial-gradient(center, ellipse cover, #41CACD 0%,#323e4c 100%);
+background: -moz-radial-gradient(center, ellipse cover, #41CACD 0%,#323e4c 100%);
+background: -o-radial-gradient(center, ellipse cover, #41CACD 0%,#323e4c 100%);
+
+font-weight: 300;
+font-size: 15px;
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+border-radius: 4px;
+}
+.box {
+width: 400px;
+height: 60px;
+-moz-border-radius: 30px;
+-webkit-border-radius: 30px;
+border-radius: 30px;
+-moz-background-clip: padding;
+-webkit-background-clip: padding-box;
+background-clip: padding-box;
+-moz-box-shadow: 0 1px 3px rgba(0,0,0,.3);
+-webkit-box-shadow: 0 1px 3px rgba(0,0,0,.3);
+box-shadow: 0 1px 3px rgba(0,0,0,.3);
+background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDQwMCA2MCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGxpbmVhckdyYWRpZW50IGlkPSJoYXQwIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjUwJSIgeTE9IjEwMCUiIHgyPSI1MCUiIHkyPSItMS40MjEwODU0NzE1MjAyZS0xNCUiPgo8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZGZkZmRmIiBzdG9wLW9wYWNpdHk9IjEiLz4KPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZTllOWU5IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgPC9saW5lYXJHcmFkaWVudD4KCjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI0MDAiIGhlaWdodD0iNjAiIGZpbGw9InVybCgjaGF0MCkiIC8+Cjwvc3ZnPg==);
+background-image: -moz-linear-gradient(90deg, #dfdfdf 0%, #e9e9e9 100%);
+background-image: -o-linear-gradient(90deg, #dfdfdf 0%, #e9e9e9 100%);
+background-image: -webkit-linear-gradient(90deg, #dfdfdf 0%, #e9e9e9 100%);
+background-image: linear-gradient(90deg, #dfdfdf 0%, #e9e9e9 100%);
+position: relative;
+top: 100px;
+display: table-cell;
+vertical-align: middle;
+text-align: center;
+
+}
+.power {
+width: 28px;
+height: 28px;
+-moz-border-radius: 14px;
+-webkit-border-radius: 14px;
+border-radius: 14px;
+-moz-background-clip: padding;
+-webkit-background-clip: padding-box;
+background-clip: padding-box;
+-moz-box-shadow: 0 1px 3px rgba(0,0,0,.25);
+-webkit-box-shadow: 0 1px 3px rgba(0,0,0,.25);
+box-shadow: 0 1px 3px rgba(0,0,0,.25);
+background: -webkit-radial-gradient(center, ellipse cover, #41CACD 0%,#323e4c 100%);
+background: -moz-radial-gradient(center, ellipse cover, #41CACD 0%,#323e4c 100%);
+background: -o-radial-gradient(center, ellipse cover, #41CACD 0%,#323e4c 100%);
+position: relative;
+top: 9px;
+left: 12px;
+}
+.box p {
+color: #999;
+display: inline;
+position: relative;
+bottom: 13px;
+left: 20px;
+}
+.user {
+color: #000;
+}
+
+.userbox {
+width: 70px;
+height: 70px;
+background-color: #00ff00;
+position: absolute;
+transform: rotate(45deg);
+-ms-transform: rotate(45deg);
+-webkit-transform: rotate(45deg);
+-o-transform: rotate(45deg);
+-moz-transform: rotate(45deg);
+left: 60px;
+top: -2px;
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+border-radius: 4px;
+-moz-background-clip: padding;
+-webkit-background-clip: padding-box;
+background-clip: padding-box;
+-moz-box-shadow: 0 1px 3px rgba(0,0,0,.2);
+-webkit-box-shadow: 0 1px 3px rgba(0,0,0,.2);
+box-shadow: 0 1px 3px rgba(0,0,0,.2);
+background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDgxIDgxIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48bGluZWFyR3JhZGllbnQgaWQ9ImhhdDAiIGdyYWRpZW50VW5pdHM9Im9iamVjdEJvdW5kaW5nQm94IiB4MT0iNTAlIiB5MT0iMTAwJSIgeDI9IjUwJSIgeTI9Ii0xLjQyMTA4NTQ3MTUyMDJlLTE0JSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNkZmRmZGYiIHN0b3Atb3BhY2l0eT0iMSIvPgo8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlOWU5ZTkiIHN0b3Atb3BhY2l0eT0iMSIvPgogICA8L2xpbmVhckdyYWRpZW50PgoKPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjgxIiBoZWlnaHQ9IjgxIiBmaWxsPSJ1cmwoI2hhdDApIiAvPgo8L3N2Zz4=);
+background-image: -moz-linear-gradient(90deg, #dfdfdf 0%, #e9e9e9 100%);
+background-image: -o-linear-gradient(90deg, #dfdfdf 0%, #e9e9e9 100%);
+background-image: -webkit-linear-gradient(90deg, #dfdfdf 0%, #e9e9e9 100%);
+background-image: linear-gradient(90deg, #dfdfdf 0%, #e9e9e9 100%);
+}
+  </style>
+@endsection
 @section('contenido')
-  @php
-    if (Auth::user()->user_id) {
-      if (config('jugadores.tabla')) {
-        if (config('jugadores.id')) {
-          $jugador = DB::table(config('jugadores.tabla'))->where(config('jugadores.id'), Auth::user()->user_id)->first();
-          $haypj = DB::table(config('jugadores.tabla'))->where(config('jugadores.id'), Auth::user()->user_id)->count();
-          $moneda = config('jugadores.moneda');
-          $dinero = config('jugadores.dinero');
-          $banco = config('jugadores.banco');
-        }
-      }
-    }
-  @endphp
-  <div class="row">
-    <div class="col-lg-4">
-      <div class="m-portlet m-portlet--full-height ">
-        <div class="m-portlet__body">
-          <div class="m-card-profile">
-            <div class="m-card-profile__title m--hide">
-              Tu perfil
-            </div>
-            <div class="m-card-profile__pic">
-              <div class="m-card-profile__pic-wrapper">
-                <img src="{{asset(Auth::user()->avatar)}}" alt=""/>
+  <div class="perfil" style="height: 300px;">
+    <center>
+      <div class="box">
+
+        <div class="m-dropdown  m-dropdown--small m-dropdown--arrow m-dropdown--align-left"  data-dropdown-toggle="click" aria-expanded="true">
+          <a href="#" class=" m-dropdown__toggle">
+            <div class="power"></div>
+          </a>
+          <div class="m-dropdown__wrapper" style="left: -165px;">
+            <span class="m-dropdown__arrow m-dropdown__arrow--right"></span>
+            <div class="m-dropdown__inner">
+              <div class="m-dropdown__body">
+                <div class="m-dropdown__content">
+                  <ul class="m-nav">
+                    <li class="m-nav__section m-nav__section--first">
+                      <span class="m-nav__section-text">
+                        Section
+                      </span>
+                    </li>
+                    <li class="m-nav__item">
+                      <a href="" class="m-nav__link">
+                        <i class="m-nav__link-icon flaticon-share"></i>
+                        <span class="m-nav__link-text">
+                          Activity
+                        </span>
+                      </a>
+                    </li>
+                    <li class="m-nav__item">
+                      <a href="" class="m-nav__link">
+                        <i class="m-nav__link-icon flaticon-chat-1"></i>
+                        <span class="m-nav__link-text">
+                          Messages
+                        </span>
+                      </a>
+                    </li>
+                    <li class="m-nav__item">
+                      <a href="" class="m-nav__link">
+                        <i class="m-nav__link-icon flaticon-info"></i>
+                        <span class="m-nav__link-text">
+                          FAQ
+                        </span>
+                      </a>
+                    </li>
+                    <li class="m-nav__item">
+                      <a href="" class="m-nav__link">
+                        <i class="m-nav__link-icon flaticon-lifebuoy"></i>
+                        <span class="m-nav__link-text">
+                        	Support
+                        </span>
+                      </a>
+                    </li>
+                    <li class="m-nav__separator m-nav__separator--fit"></li>
+                    <li class="m-nav__item">
+                      <a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm">
+                        Logout
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div class="m-card-profile__details">
-              <span class="m-card-profile__name">
-                {{Auth::user()->name}}
-              </span>
-              <a href="" class="m-card-profile__email m-link">
-                {{Auth::user()->email}}
-              </a>
             </div>
           </div>
-          <ul class="m-nav m-nav--hover-bg m-portlet-fit--sides">
-            <li class="m-nav__separator m-nav__separator--fit"></li>
-            <li class="m-nav__section m--hide">
-              <span class="m-nav__section-text">
-                Menu
-              </span>
-            </li>
-            <li class="m-nav__item">
-              <a href="#" class="m-nav__link">
-                <i class="m-nav__link-icon flaticon-profile-1"></i>
-                <span class="m-nav__link-title">
-                  <span class="m-nav__link-wrap">
-                    <span class="m-nav__link-text">
-                      {{__('web.perfil')}}
-                    </span>
-
-                  </span>
-                </span>
-              </a>
-            </li>
-            <li class="m-nav__item">
-              <a href="{{url('actividad')}}" class="m-nav__link">
-                <i class="m-nav__link-icon flaticon-share"></i>
-                <span class="m-nav__link-text">
-                  {{__('web.actividad')}}
-                </span>
-              </a>
-            </li>
-            <li class="m-nav__item">
-              <a href="{{url('mensajes')}}" class="m-nav__link">
-                <i class="m-nav__link-icon flaticon-chat-1"></i>
-                <span class="m-nav__link-text">
-                  {{__('web.mensajes')}}
-                </span>
-              </a>
-            </li>
-
-            <li class="m-nav__item">
-              <a href="{{url('soporte')}}" class="m-nav__link">
-                <i class="m-nav__link-icon flaticon-lifebuoy"></i>
-                <span class="m-nav__link-text">
-                  {{__('web.soporte')}}
-                </span>
-              </a>
-            </li>
-          </ul>
-          @if (Auth::user()->user_id != NULL && config('jugadores.tabla') && config('jugadores.id') && $haypj)
-            <div class="m-portlet__body-separator"></div>
-            <div class="m-widget1 m-widget1--paddingless">
-              @if (config('jugadores.moneda'))
-              <div class="m-widget1__item">
-                <div class="row m-row--no-padding align-items-center">
-                  <div class="col">
-                    <h3 class="m-widget1__title">
-                      Moneda Premium
-                    </h3>
-                    <span class="m-widget1__desc">
-                      Moneda VIP
-                    </span>
-                  </div>
-                  <div class="col m--align-right">
-                    <span class="m-widget1__number m--font-info">
-                      ${{$jugador->$moneda}}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              @endif
-              @if (config('jugadores.dinero') && config('jugadores.banco'))
-                <div class="m-widget1__item">
-                  <div class="row m-row--no-padding align-items-center">
-                    <div class="col">
-                      <h3 class="m-widget1__title">
-                        Dinero total
-                      </h3>
-                      <span class="m-widget1__desc">
-                        Banco + Billetera
-                      </span>
-                    </div>
-                    <div class="col m--align-right">
-                      <span class="m-widget1__number m--font-brand">
-                        ${{$jugador->$moneda+$jugador->$banco}}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              @endif
-              @if (config('jugadores.dinero'))
-              <div class="m-widget1__item">
-                <div class="row m-row--no-padding align-items-center">
-                  <div class="col">
-                    <h3 class="m-widget1__title">
-                      Billetera
-                    </h3>
-                    <span class="m-widget1__desc">
-                      Tu dinero en mano
-                    </span>
-                  </div>
-                  <div class="col m--align-right">
-                    <span class="m-widget1__number m--font-danger">
-                      ${{$jugador->$moneda}}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              @endif
-              @if (config('jugadores.banco'))
-                <div class="m-widget1__item">
-                  <div class="row m-row--no-padding align-items-center">
-                    <div class="col">
-                      <h3 class="m-widget1__title">
-                        Caja de ahorro
-                      </h3>
-                      <span class="m-widget1__desc">
-                        Tu dinero en el Banco
-                      </span>
-                    </div>
-                    <div class="col m--align-right">
-                      <span class="m-widget1__number m--font-success">
-                        ${{$jugador->$banco}}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              @endif
-
-            </div>
-          @endif
-
-
         </div>
+        <img class="userbox" src="{{asset(Auth::user()->avatar)}}" alt=""/>
+
+        <p><span class="user"> <b>Jim_Street</b> </span></p>
+
       </div>
-    </div>
-    <div class="col-lg-8">
-      <div class="m-portlet m-portlet--full-height m-portlet--tabs ">
-        <div class="m-portlet__head">
-          <div class="m-portlet__head-tools">
-            <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
-              <li class="nav-item m-tabs__item">
-                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#shouts" role="tab">
-                  <i class="flaticon-share m--hide"></i>
-                  Shouts
-                </a>
-              </li>
-              @if (Auth::user()->user_id != NULL)
-                <li class="nav-item m-tabs__item">
-                  <a class="nav-link m-tabs__link" data-toggle="tab" href="#estadisticas" role="tab">
-                    {{__('web.estadisticas')}}
-                  </a>
-                </li>
-              @endif
-              <li class="nav-item m-tabs__item">
-                <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_2" role="tab">
-                  {{__('web.ajustes')}}
-                </a>
-              </li>
-            </ul>
-          </div>
+    </center>
 
-        </div>
-        <div class="tab-content">
-          <div class="tab-pane active" id="shouts">
-            <div class="m-portlet__body">
-              <div class="row">
-
-              </div>
-              <form class="m-form m-form--fit" action="{{url('shoutear')}}" method="post">
-                {{ csrf_field() }}
-                <div class="col-10 pull-left">
-                  <textarea name="shout" class="form-control m-input" maxlength="78"></textarea>
-                </div>
-                <div class="col-2 pull-right">
-                  <button type="submit" class="btn btn-accent">
-                    Shout
-                  </button>
-                </div>
-              </form>
-              <br>
-              <br>
-              <br>
-              <hr>
-
-              <div class="m-widget4">
-                @php
-                $shouts = DB::table('shouts')->orderBy('id', 'desc')->take(5)->get();
-                @endphp
-                @foreach($shouts as $shout)
-                  @php
-                  $usershout = DB::table('users')->where('id', $shout->user_id)->first();
-                  @endphp
-                <div class="m-widget4__item">
-                  <div class="m-widget4__img m-widget4__img--pic">
-                    <img src="{{asset($usershout->avatar)}}" alt="">
-                  </div>
-                  <div class="m-widget4__info">
-                    <span class="m-widget4__title">
-                      <a href="{{url($usershout->name)}}" class="m-widget4__title">{{$usershout->name}}</a> <small>{{Carbon::createFromTimeStamp(strtotime($shout->created_at))->diffForHumans()}}</small>
-                    </span>
-                    <br>
-
-                    <div class="m-widget4">
-                      {{$shout->shout}}
-                    </div>
-                  </div>
-                  @if($shout->user_id == Auth::user()->id)
-                  <a href="{{url('borrarshout/'.$shout->id)}}" class="m-widget4__sub">
-                    <i class="la la-trash-o"></i>
-                  </a>
-                @endif
-                </div>
-                @endforeach
-
-
-              </div>
-            </div>
-          </div>
-          @if (Auth::user()->user_id != NULL)
-            <div class="tab-pane active" id="estadisticas">
-              <div class="m-portlet__body">
-                <div class="row">
-
-                </div>
-
-              </div>
-            </div>
-          @endif
-          <div class="tab-pane" id="m_user_profile_tab_2">
-            <form class="m-form m-form--fit m-form--label-align-right" action="{{route('cambiarpassuser')}}" method="post">
-              {{ csrf_field() }}
-              {{ method_field('POST') }}
-              <div class="m-portlet__body">
-
-                <div class="form-group m-form__group">
-                  <label for="slug">Contraseña Actual</label>
-                  <input class="form-control m-input" id="current-password" type="password" name="current-password">
-                  <span class="m-form__help">Escribe la contraseña que utilizas ahora mismo.</span>
-                </div>
-                <div class="form-group m-form__group">
-                  <label for="slug">Nueva Contraseña</label>
-                  <input class="form-control m-input" id="password" type="password" name="password">
-                  <span class="m-form__help">Escribe nueva contraseña que deseas para tu cuenta.</span>
-                </div>
-                <div class="form-group m-form__group">
-                  <label for="slug">Confirmar Contraseña</label>
-                  <input class="form-control m-input" id="password_confirmation" type="password" name="password_confirmation">
-                  <span class="m-form__help">Escribe la nueva contraseña de nuevo.</span>
-                </div>
-              </div>
-              <div class="m-portlet__foot m-portlet__foot--fit">
-                <div class="m-form__actions">
-                  <button type="submit" class="btn btn-primary">Cambiar</button>
-                </div>
-              </div>
-            </form>
-          </div>
-
-        </div>
-      </div>
-    </div>
   </div>
-
+  
 
 
 @endsection

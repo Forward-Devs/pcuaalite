@@ -43,15 +43,16 @@
     <!--Fin::Estilos de base -->
 		<link rel="shortcut icon" href="{{asset('favicon.ico')}}" />
 		<style media="screen">
-		.m-header .m-header__top { background: #2A3558; }
-		.m-brand { background: #2A3558; }
-		.m-header .m-header__bottom { background: #1F263F; }
+		.m-header-search .m-header-search__wrapper { background-color: #{{Ajuste::where('clave', 'colorbarlight')->first()->$lenguaje}}; }
+		.m-header .m-header__top { background: #{{Ajuste::where('clave', 'colorbarlight')->first()->$lenguaje}}; }
+		.m-brand { background: #{{Ajuste::where('clave', 'colorbarlight')->first()->$lenguaje}}; }
+		.m-header .m-header__bottom { background: #{{Ajuste::where('clave', 'colorbardark')->first()->$lenguaje}}; }
 		.m-header-search .m-header-search__input {color:#BCC0CD;}
-
+		body.m--skin-dark { background-color: #{{Ajuste::where('clave', 'colorfondo')->first()->$lenguaje}}; }
 		</style>
 	</head>
 
-	<body class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default"  >
+	<body class="m-page--wide m--skin-dark m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default"  >
 		<!-- begin:: Page -->
 		<div class="m-grid m-grid--hor m-grid--root m-page">
 			<!-- begin::Header -->
@@ -230,7 +231,7 @@
 			<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
 				<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver	m-container m-container--responsive m-container--xxl m-page__container">
 					@yield('side')
-					<div class="m-grid__item m-grid__item--fluid m-wrapper">
+					<div class="m-grid__item m-grid__item--fluid m-wrapper m--skin-dark">
 
 						<div class="m-content">
 							@yield('contenido')

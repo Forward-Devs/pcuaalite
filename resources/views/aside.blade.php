@@ -1,5 +1,5 @@
 <div id="m_aside_left" class="m-grid__item m-aside-left ">
-  <div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-light m-aside-menu--submenu-skin-light " data-menu-vertical="true" data-menu-scrollable="false" data-menu-dropdown-timeout="500">
+  <div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark " data-menu-vertical="true" data-menu-scrollable="false" data-menu-dropdown-timeout="500">
     <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
       <li class="m-menu__section">
         <h4 class="m-menu__section-text">
