@@ -1,29 +1,40 @@
 # PCUAA Lite v1.0.10
 
-Es la versi�n gratuita de PCUAA , un panel de control de usuarios para SAMP autom�tico, se adapta f�cilmente a cualquier Gamemode.
+Es la versión gratuita de PCUAA , un panel de control de usuarios para SAMP automático, se adapta fácilmente a cualquier Gamemode.
 
 
-## Requisitos
+# Instalación
 
+## Composer
 
-* Composer (https://github.com/Forward-Devs/pcuaalite)
+**Tener instalado composer**
+* PHP 7
+Descarga composer: https://getcomposer.org/download/
 
-* PHP 7+
+## 1) Descarga
 
+Ejecutar el comando `composer create-project forwarddevs/pcuaalite nombre-proyecto` remplazando "nombre-proyecto" por el nombre de la carpeta a crear, por ejemplo "composer create-project forwarddevs/pcuaalite pcu".
 
-## Instalaci�n
+## 2) Configuración
 
-1) Dirigirse a la carpeta del proyecto con CMD.
+En la carpeta raíz del proyecto nos encontraremos con el archivo ".env".
 
-2) Ejecutar el comando "composer install"
+Debemos crear una base de datos y configurarla.
 
-3) Ingresar a la web (Ejemplo: localhost/pcuaa/public)
+Remplazar los valores de 
+`DB_HOST` por el HOST de nuestra database.
+`DB_DATABASE` por el nombre de la database.
+`DB_USERNAME` por el usuario.
+`DB_PASSWORD` por la contraseña de nuestra database.
 
-Recordar que la web se encuentra en la carpeta "public" del proyecto.
+## 3) Instalación.
 
+Una vez instalado el proyecto ingresar a la carpeta raíz con CMD, ejemplo `cd pcu` y ejecutar los comandos:
+1) `php artisan migrate`
+2) `php artisan db:seed`
 
-## Laravel
+## Run/Ejecutar
 
-Para comprender el funcionamiento del PCU visitar la documentaci�n de Laravel 5.5 
+Ingresamos a nuestra web, siguiendo este ejemplo deberás ingresar a "http://localhost/pcu/public"
 
-https://docs.laraveles.com/docs/5.5/
+Si estás en un hosting recuerda definir el directorio root en la carpeta public.
