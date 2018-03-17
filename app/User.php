@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -32,12 +33,45 @@ class User extends Authenticatable
         'developer' => 'boolean',
     ];
 
+    /**
+     * Verify if the user is an administrator.
+     *
+     * @return boolean
+     */
     public function isAdmin()
     {
         return $this->admin;
     }
+
+    /**
+     * Verify if the user is an developer.
+     *
+     * @return boolean
+     */
     public function isDev()
     {
         return $this->developer;
     }
+
+    /**
+     * Get the tickets initiated by the user.
+     *
+     * @return App/Tickets
+     */
+    public function getTickets()
+    {
+        return $this->hasMany('Ticket');
+    }
+
+    /**
+     * Obtain user activity on the web.
+     *
+     * @return App/Actividad
+     */
+    public function getActivity()
+    {
+        return $this->hasMany('Actividad');
+    }
+
+
 }

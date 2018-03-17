@@ -80,7 +80,7 @@
         <div class="tab-content">
           <div class="tab-pane active" id="tickets">
             <div class="m-widget2">
-              @foreach ($tickets as $ticket)
+              @foreach (auth()->user()->getTickets as $ticket)
                 @php
                   if ($ticket->estado == 0) {
                     $estado = 'success';
