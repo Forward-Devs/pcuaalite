@@ -53,6 +53,27 @@ class Configuraciones extends Seeder
           'fr' => 'images/fondo.jpg',
           'created_at' => \Carbon::now()->toDateTimeString(),
       ]);
+      DB::table('ajustes')->insert([
+          'clave' => 'colorbardark',
+          'en' => '1F263F',
+          'es' => '1F263F',
+          'fr' => '1F263F',
+          'created_at' => \Carbon::now()->toDateTimeString(),
+      ]);
+      DB::table('ajustes')->insert([
+          'clave' => 'colorbarlight',
+          'en' => '2A3558',
+          'es' => '2A3558',
+          'fr' => '2A3558',
+          'created_at' => \Carbon::now()->toDateTimeString(),
+      ]);
+      DB::table('ajustes')->insert([
+          'clave' => 'colorfondo',
+          'en' => 'efefef',
+          'es' => 'efefef',
+          'fr' => 'efefef',
+          'created_at' => \Carbon::now()->toDateTimeString(),
+      ]);
 
     }
 }
