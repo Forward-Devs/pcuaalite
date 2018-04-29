@@ -38,3 +38,5 @@ Una vez instalado el proyecto ingresar a la carpeta raíz con CMD, ejemplo `cd p
 Ingresamos a nuestra web, siguiendo este ejemplo deberás ingresar a "http://localhost/pcu/public"
 
 Si estás en un hosting recuerda definir el directorio root en la carpeta public.
+
+## Desarollado por FR0Z3NH34R7
