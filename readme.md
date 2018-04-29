@@ -39,4 +39,4 @@ Ingresamos a nuestra web, siguiendo este ejemplo deberás ingresar a "http://loc
 
 Si estás en un hosting recuerda definir el directorio root en la carpeta public.
 
-## Desarollado por FR0Z3NH34R7
+## Desarrollado por FR0Z3NH34R7
