@@ -1,4 +1,4 @@
-# PCUAA Lite v1.0.10
+# PCUAA Lite v1.1.1
 
 Es la versión gratuita de PCUAA , un panel de control de usuarios para SAMP automático, se adapta fácilmente a cualquier Gamemode.
 
@@ -9,11 +9,13 @@ Es la versión gratuita de PCUAA , un panel de control de usuarios para SAMP aut
 
 **Tener instalado composer**
 * PHP 7
-Descarga composer: https://getcomposer.org/download/
+* Node JS
+* Descarga composer: https://getcomposer.org/download/
 
 ## 1) Descarga
 
 Ejecutar el comando `composer create-project forwarddevs/pcuaalite nombre-proyecto` remplazando "nombre-proyecto" por el nombre de la carpeta a crear, por ejemplo "composer create-project forwarddevs/pcuaalite pcu".
+
 
 ## 2) Configuración
 
@@ -33,6 +35,9 @@ Una vez instalado el proyecto ingresar a la carpeta raíz con CMD, ejemplo `cd p
 1) `php artisan migrate`
 2) `php artisan db:seed`
 
+## NPM
+ 
+No olvidar usar "npm install" para instalar las dependencias de node
 ## Run/Ejecutar
 
 Ingresamos a nuestra web, siguiendo este ejemplo deberás ingresar a "http://localhost/pcu/public"
