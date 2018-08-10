@@ -10,7 +10,7 @@ Es la versión gratuita de PCUAA , un panel de control de usuarios para SAMP aut
 **Tener instalado composer**
 * PHP 7
 * Node JS
-Descarga composer: https://getcomposer.org/download/
+* Descarga composer: https://getcomposer.org/download/
 
 ## 1) Descarga
 
