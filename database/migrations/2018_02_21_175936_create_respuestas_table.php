@@ -19,6 +19,8 @@ class CreateRespuestasTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('ticket_id')->unsigned()->nullable();
             $table->foreign('ticket_id')->references('id')->on('tickets');
+            $table->integer('reporte_id')->unsigned()->nullable();
+            $table->foreign('reporte_id')->references('id')->on('reportes');
             $table->text('respuesta')->nullable();
             $table->timestamps();
         });

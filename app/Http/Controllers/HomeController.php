@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('lite.inicio');
+        return view('inicio');
     }
     public function AllSeen(){
         foreach(auth()->user()->unreadNotifications as $note){

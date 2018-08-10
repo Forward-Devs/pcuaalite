@@ -36,15 +36,14 @@ var DatatableChildRemoteDataDemo = function () {
 			// column sorting
 			sortable: true,
 
+			// column based filtering
+			filterable: false,
+
 			pagination: true,
 
 			detail: {
 				title: 'Load sub table',
 				content: subTableInit
-			},
-
-			search: {
-				input: $('#generalSearch')
 			},
 
 			// columns definition
@@ -54,14 +53,6 @@ var DatatableChildRemoteDataDemo = function () {
 				sortable: false,
 				width: 50,
 				textAlign: 'center'
-			}, {
-				field: "checkbox",
-				title: "",
-				template: "{{RecordID}}",
-				sortable: false,
-				width: 50,
-				textAlign: 'center',
-				selector: {class: 'm-checkbox--solid m-checkbox--brand'}
 			}, {
 				field: "FirstName",
 				title: "First Name",
@@ -84,9 +75,9 @@ var DatatableChildRemoteDataDemo = function () {
 				overflow: 'visible',
 				template: function (row) {
 					var dropup = (row.getDatatable().getPageSize() - row.getIndex()) <= 4 ? 'dropup' : '';
-
+					
 					return '\
-						<div class="dropdown ' + dropup + '">\
+						<div class="dropdown '+ dropup +'">\
 							<a href="#" class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown">\
                                 <i class="la la-ellipsis-h"></i>\
                             </a>\
@@ -114,8 +105,7 @@ var DatatableChildRemoteDataDemo = function () {
 						type: 'remote',
 						source: {
 							read: {
-								url: 'inc/api/datatables/demos/orders.php',
-								headers: {'x-my-custom-header': 'some value', 'x-test-header': 'the value'},
+								url: 'http://keenthemes.com/metronic/preview/inc/api/datatables/demos/orders.php',
 								params: {
 									// custom query params
 									query: {
@@ -177,6 +167,20 @@ var DatatableChildRemoteDataDemo = function () {
 					}]
 				});
 		}
+
+		var query = datatable.getDataSourceQuery();
+
+		$('#m_form_search').on('keyup', function (e) {
+			// shortcode to datatable.getDataSourceParam('query');
+			var query = datatable.getDataSourceQuery();
+			query.generalSearch = $(this).val().toLowerCase();
+			// shortcode to datatable.setDataSourceParam('query', query);
+			datatable.setDataSourceQuery(query);
+			datatable.load();
+		}).val(query.generalSearch);
+
+		$('#m_form_status, #m_form_type').selectpicker();
+
 	};
 
 	return {

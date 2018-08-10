@@ -37,10 +37,6 @@ var DefaultDatatableDemo = function () {
 
 			pagination: true,
 
-			search: {
-				input: $('#generalSearch')
-			},
-
 			// toolbar
 			toolbar: {
 				// toolbar items
@@ -162,7 +158,7 @@ var DefaultDatatableDemo = function () {
 					var dropup = (row.getDatatable().getPageSize() - row.getIndex()) <= 4 ? 'dropup' : '';
 
 					return '\
-						<div class="dropdown ' + dropup + '">\
+						<div class="dropdown '+ dropup +'">\
 							<a href="#" class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown">\
                                 <i class="la la-ellipsis-h"></i>\
                             </a>\
@@ -182,6 +178,20 @@ var DefaultDatatableDemo = function () {
 				}
 			}]
 		});
+
+		var query = datatable.getDataSourceQuery();
+
+		$('#m_form_search').on('keyup', function (e) {
+			// shortcode to datatable.getDataSourceParam('query');
+			var query = datatable.getDataSourceQuery();
+			query.generalSearch = $(this).val().toLowerCase();
+			// shortcode to datatable.setDataSourceParam('query', query);
+			datatable.setDataSourceQuery(query);
+			datatable.load();
+		}).val(query.generalSearch);
+
+		$('#m_form_status, #m_form_type').selectpicker();
+
 	};
 
 	return {

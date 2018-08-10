@@ -25,10 +25,10 @@
 		{{-- Fin:Fuente de la web --}}
     {{-- Estilos --}}
     {{-- Pagina --}}
-
+		<link href="{{asset('admin/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css')}}" rel="stylesheet" type="text/css" />
 		{{-- Base --}}
-		<link href="{{asset('assets/vendors/base/vendors.bundle.css')}}" rel="stylesheet" type="text/css" />
-		<link href="{{asset('assets/demo/default/base/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{asset('admin/assets/vendors/base/vendors.bundle.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{asset('admin/assets/demo/default/base/style.bundle.css')}}" rel="stylesheet" type="text/css" />
 		@yield('styles')
     {{-- Icono --}}
 		<link rel="shortcut icon" href="{{asset('favicon.ico')}}" />
@@ -50,24 +50,27 @@
 									</a>
 								</div>
 								<div class="m-stack__item m-stack__item--middle m-brand__tools">
-
+									<!-- BEGIN: Left Aside Minimize Toggle -->
 									<a href="javascript:;" id="m_aside_left_minimize_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-desktop-inline-block
 					 ">
 										<span></span>
 									</a>
-
+									<!-- END -->
+							<!-- BEGIN: Responsive Aside Left Menu Toggler -->
 									<a href="javascript:;" id="m_aside_left_offcanvas_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-tablet-and-mobile-inline-block">
 										<span></span>
 									</a>
-
+									<!-- END -->
+							<!-- BEGIN: Responsive Header Menu Toggler -->
 									<a id="m_aside_header_menu_mobile_toggle" href="javascript:;" class="m-brand__icon m-brand__toggler m--visible-tablet-and-mobile-inline-block">
 										<span></span>
 									</a>
-
+									<!-- END -->
+			<!-- BEGIN: Topbar Toggler -->
 									<a id="m_aside_header_topbar_mobile_toggle" href="javascript:;" class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
 										<i class="flaticon-more"></i>
 									</a>
-
+									<!-- BEGIN: Topbar Toggler -->
 								</div>
 							</div>
 						</div>
@@ -135,7 +138,31 @@
 									</span>
 								</a>
 							</li>
+							<li class="m-menu__item" aria-haspopup="true" >
+								<a  href="{{url('/pca/faqs')}}" class="m-menu__link ">
+									<i class="m-menu__link-icon flaticon-information"></i>
+									<span class="m-menu__link-title">
+										<span class="m-menu__link-wrap">
+											<span class="m-menu__link-text">
+												FAQ
+											</span>
+										</span>
+									</span>
+								</a>
+							</li>
 
+							<li class="m-menu__item" aria-haspopup="true" >
+								<a  href="{{url('/pca/sliders')}}" class="m-menu__link ">
+									<i class="m-menu__link-icon flaticon-add"></i>
+									<span class="m-menu__link-title">
+										<span class="m-menu__link-wrap">
+											<span class="m-menu__link-text">
+												Slider
+											</span>
+										</span>
+									</span>
+								</a>
+							</li>
 							<li class="m-menu__item" aria-haspopup="true" >
 								<a  href="{{url('/pca/users')}}" class="m-menu__link ">
 									<i class="m-menu__link-icon flaticon-user-add"></i>
@@ -148,7 +175,18 @@
 									</span>
 								</a>
 							</li>
-
+							<li class="m-menu__item" aria-haspopup="true" >
+								<a  href="{{url('/pca/reportes')}}" class="m-menu__link ">
+									<i class="m-menu__link-icon flaticon-file-1"></i>
+									<span class="m-menu__link-title">
+										<span class="m-menu__link-wrap">
+											<span class="m-menu__link-text">
+												Reportes
+											</span>
+										</span>
+									</span>
+								</a>
+							</li>
 							<li class="m-menu__item" aria-haspopup="true" >
 								<a  href="{{url('/pca/tickets')}}" class="m-menu__link ">
 									<i class="m-menu__link-icon flaticon-danger"></i>
@@ -174,13 +212,25 @@
 								</a>
 							</li>
 
+
 							<li class="m-menu__section">
 								<h4 class="m-menu__section-text">
 									Web
 								</h4>
 								<i class="m-menu__section-icon flaticon-more-v3"></i>
 							</li>
-
+							<li class="m-menu__item" aria-haspopup="true" >
+								<a  href="{{url('/pca/cuenta')}}" class="m-menu__link ">
+									<i class="m-menu__link-icon flaticon-user-settings"></i>
+									<span class="m-menu__link-title">
+										<span class="m-menu__link-wrap">
+											<span class="m-menu__link-text">
+												Cuenta
+											</span>
+										</span>
+									</span>
+								</a>
+							</li>
 							<li class="m-menu__item" aria-haspopup="true" >
 								<a  href="{{url('/pca/ajustes')}}" class="m-menu__link ">
 									<i class="m-menu__link-icon flaticon-cogwheel-2"></i>
@@ -257,9 +307,10 @@
 		<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
 			<i class="la la-arrow-up"></i>
 		</div>
-		<script src="{{asset('assets/vendors/base/vendors.bundle.js')}}" type="text/javascript"></script>
-		<script src="{{asset('assets/demo/default/base/scripts.bundle.js')}}" type="text/javascript"></script>
-
+		<script src="{{asset('admin/assets/vendors/base/vendors.bundle.js')}}" type="text/javascript"></script>
+		<script src="{{asset('admin/assets/demo/default/base/scripts.bundle.js')}}" type="text/javascript"></script>
+		<script src="{{asset('admin/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js')}}" type="text/javascript"></script>
+		<script src="{{asset('admin/assets/app/js/dashboard.js')}}" type="text/javascript"></script>
 		@yield('scripts')
 	</body>
 </html>

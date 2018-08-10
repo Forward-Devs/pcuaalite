@@ -1,4 +1,9 @@
 @extends('layouts.plantilla')
+@section('css')
+  <style media="screen">
+    .efectohov:hover {filter: blur(5px);}
+  </style>
+@endsection
 @section('contenido')
   @php
     if (Auth::user()->user_id) {
@@ -23,7 +28,8 @@
             </div>
             <div class="m-card-profile__pic">
               <div class="m-card-profile__pic-wrapper">
-                <img src="{{asset(Auth::user()->avatar)}}" alt=""/>
+                <a href="#" data-toggle="modal" data-target="#cambiarfoto"><img class="efectohov" src="{{asset(Auth::user()->avatar)}}" alt=""/></a>
+
               </div>
             </div>
             <div class="m-card-profile__details">
@@ -50,6 +56,7 @@
                     <span class="m-nav__link-text">
                       {{__('web.perfil')}}
                     </span>
+
                   </span>
                 </span>
               </a>
@@ -63,10 +70,19 @@
               </a>
             </li>
             <li class="m-nav__item">
-              <a href="{{url('tickets')}}" class="m-nav__link">
+              <a href="{{url('mensajes')}}" class="m-nav__link">
+                <i class="m-nav__link-icon flaticon-chat-1"></i>
+                <span class="m-nav__link-text">
+                  {{__('web.mensajes')}}
+                </span>
+              </a>
+            </li>
+
+            <li class="m-nav__item">
+              <a href="{{url('soporte')}}" class="m-nav__link">
                 <i class="m-nav__link-icon flaticon-lifebuoy"></i>
                 <span class="m-nav__link-text">
-                  Tickets
+                  {{__('web.soporte')}}
                 </span>
               </a>
             </li>
@@ -163,9 +179,10 @@
         <div class="m-portlet__head">
           <div class="m-portlet__head-tools">
             <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
-              <li class="nav-item m-tabs__item active">
-                <a class="nav-link m-tabs__link" data-toggle="tab" href="#ajustes" role="tab">
-                  {{__('web.ajustes')}}
+              <li class="nav-item m-tabs__item">
+                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#shouts" role="tab">
+                  <i class="flaticon-share m--hide"></i>
+                  Shouts
                 </a>
               </li>
               @if (Auth::user()->user_id != NULL)
@@ -175,13 +192,72 @@
                   </a>
                 </li>
               @endif
-
+              <li class="nav-item m-tabs__item">
+                <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_2" role="tab">
+                  {{__('web.ajustes')}}
+                </a>
+              </li>
             </ul>
           </div>
 
         </div>
         <div class="tab-content">
+          <div class="tab-pane active" id="shouts">
+            <div class="m-portlet__body">
+              <div class="row">
 
+              </div>
+              <form class="m-form m-form--fit" action="{{route('shoutear')}}" method="post">
+                {{ csrf_field() }}
+                {{ method_field('POST') }}
+                <div class="col-10 pull-left">
+                  <textarea name="shout" class="form-control m-input" maxlength="78"></textarea>
+                </div>
+                <div class="col-2 pull-right">
+                  <button type="submit" class="btn btn-accent">
+                    Shout
+                  </button>
+                </div>
+              </form>
+              <br>
+              <br>
+              <br>
+              <hr>
+
+              <div class="m-widget4">
+                @php
+                $shouts = DB::table('shouts')->orderBy('id', 'desc')->take(5)->get();
+                @endphp
+                @foreach($shouts as $shout)
+                  @php
+                  $usershout = DB::table('users')->where('id', $shout->user_id)->first();
+                  @endphp
+                <div class="m-widget4__item">
+                  <div class="m-widget4__img m-widget4__img--pic">
+                    <img src="{{asset($usershout->avatar)}}" alt="">
+                  </div>
+                  <div class="m-widget4__info">
+                    <span class="m-widget4__title">
+                      <a href="{{url($usershout->name)}}" class="m-widget4__title">{{$usershout->name}}</a> <small>{{Carbon::createFromTimeStamp(strtotime($shout->created_at))->diffForHumans()}}</small>
+                    </span>
+                    <br>
+
+                    <div class="m-widget4">
+                      {{$shout->shout}}
+                    </div>
+                  </div>
+                  @if($shout->user_id == Auth::user()->id)
+                  <a href="{{url('borrarshout/'.$shout->id)}}" class="m-widget4__sub">
+                    <i class="la la-trash-o"></i>
+                  </a>
+                @endif
+                </div>
+                @endforeach
+
+
+              </div>
+            </div>
+          </div>
           @if (Auth::user()->user_id != NULL)
             <div class="tab-pane active" id="estadisticas">
               <div class="m-portlet__body">
@@ -192,7 +268,7 @@
               </div>
             </div>
           @endif
-          <div class="tab-pane active" id="ajustes">
+          <div class="tab-pane" id="m_user_profile_tab_2">
             <form class="m-form m-form--fit m-form--label-align-right" action="{{route('cambiarpassuser')}}" method="post">
               {{ csrf_field() }}
               {{ method_field('POST') }}
@@ -227,6 +303,49 @@
     </div>
   </div>
 
+  <div class="modal fade" id="cambiarfoto" tabindex="-1" role="dialog" aria-labelledby="cambiarfoto" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cambiarfoto">
+            {{__('web.tyc')}}
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+              &times;
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="m-scrollable" data-scrollbar-shown="true" data-scrollable="true" data-max-height="200">
+            <h3>Cambiar avatar</h3>
+            <form class="m-form m-form--fit m-form--label-align-right" enctype="multipart/form-data" action="{{route('sliders.store')}}"  method="post">
+              {{ csrf_field() }}
+              {{ method_field('POST') }}
+              <div class="m-portlet__body">
+                <div class="form-group m-form__group">
+                  <label for="imagen">
+                    Imagen 1200x400
+                  </label>
+                  <div></div>
+                  <label class="custom-file">
+                    <input type="file" name="imagen" placeholder="Haga click para seleccionar un archivo" class="form-control-file">
+                  </label>
+                </div>
 
+
+              </div>
+              <div class="m-portlet__foot m-portlet__foot--fit">
+                <div class="m-form__actions">
+                  <button type="submit" class="btn btn-primary">Crear Slider</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
 @endsection

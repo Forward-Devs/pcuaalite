@@ -1,5 +1,11 @@
 <div id="m_aside_left" class="m-grid__item m-aside-left ">
-  <div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark " data-menu-vertical="true" data-menu-scrollable="false" data-menu-dropdown-timeout="500">
+  <!-- BEGIN: Aside Menu -->
+  <div
+id="m_ver_menu"
+class="m-aside-menu  m-aside-menu--skin-light m-aside-menu--submenu-skin-light "
+data-menu-vertical="true"
+data-menu-scrollable="false" data-menu-dropdown-timeout="500"
+>
     <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
       <li class="m-menu__section">
         <h4 class="m-menu__section-text">
@@ -8,8 +14,8 @@
         <i class="m-menu__section-icon flaticon-more-v3"></i>
       </li>
 
-      <li class="m-menu__item " aria-haspopup="true"  data-redirect="true">
-        <a  href="{{url('/')}}" class="m-menu__link ">
+      <li @click="menu=0" class="m-menu__item " aria-haspopup="true"  data-redirect="true">
+        <a  href="#" class="m-menu__link ">
           <i class="m-menu__link-bullet m-menu__link-bullet--dot">
             <span></span>
           </i>
@@ -18,9 +24,18 @@
           </span>
         </a>
       </li>
-
-      <li class="m-menu__item " aria-haspopup="true"  data-redirect="true">
-        <a  href="{{url('noticias')}}" class="m-menu__link ">
+      <li @click="menu=1" class="m-menu__item " aria-haspopup="true"  data-redirect="true">
+        <a  href="#" class="m-menu__link ">
+          <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+            <span></span>
+          </i>
+          <span class="m-menu__link-text">
+            Shouts
+          </span>
+        </a>
+      </li>
+      <li @click="menu=2" class="m-menu__item " aria-haspopup="true"  data-redirect="true">
+        <a  href="#" class="m-menu__link ">
           <i class="m-menu__link-bullet m-menu__link-bullet--dot">
             <span></span>
           </i>
@@ -29,7 +44,16 @@
           </span>
         </a>
       </li>
-
+      <li class="m-menu__item " aria-haspopup="true"  data-redirect="true">
+        <a  href="{{url('faq')}}" class="m-menu__link ">
+          <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+            <span></span>
+          </i>
+          <span class="m-menu__link-text">
+            FAQ
+          </span>
+        </a>
+      </li>
       @auth
         <li class="m-menu__section">
           <h4 class="m-menu__section-text">
@@ -57,7 +81,16 @@
             </span>
           </a>
         </li>
-
+        <li class="m-menu__item " aria-haspopup="true"  data-redirect="true">
+          <a  href="{{url('mensajes')}}" class="m-menu__link ">
+            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+              <span></span>
+            </i>
+            <span class="m-menu__link-text">
+              {{__('web.mensajes')}}
+            </span>
+          </a>
+        </li>
         <li class="m-menu__item " aria-haspopup="true"  data-redirect="true">
           <a  href="{{url('tickets')}}" class="m-menu__link ">
             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -72,5 +105,5 @@
 
     </ul>
   </div>
-
+  <!-- END: Aside Menu -->
 </div>

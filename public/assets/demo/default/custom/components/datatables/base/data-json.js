@@ -30,11 +30,10 @@ var DatatableJsonRemoteDemo = function () {
 			// column sorting
 			sortable: true,
 
-			pagination: true,
+			// column based filtering
+			filterable: false,
 
-			search: {
-				input: $('#generalSearch')
-			},
+			pagination: true,
 
 			// columns definition
 			columns: [{
@@ -68,9 +67,7 @@ var DatatableJsonRemoteDemo = function () {
 				responsive: {visible: 'lg'}
 			}, {
 				field: "ShipDate",
-				title: "Ship Date",
-				type: "date",
-				format: "MM/DD/YYYY"
+				title: "Ship Date"
 			}, {
 				field: "Status",
 				title: "Status",
@@ -109,7 +106,7 @@ var DatatableJsonRemoteDemo = function () {
 					var dropup = (row.getDatatable().getPageSize() - row.getIndex()) <= 4 ? 'dropup' : '';
 
 					return '\
-						<div class="dropdown ' + dropup + '">\
+						<div class="dropdown '+ dropup +'">\
 							<a href="#" class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown">\
                                 <i class="la la-ellipsis-h"></i>\
                             </a>\
@@ -131,6 +128,10 @@ var DatatableJsonRemoteDemo = function () {
 		});
 
 		var query = datatable.getDataSourceQuery();
+
+		$('#m_form_search').on('keyup', function (e) {
+			datatable.search($(this).val().toLowerCase());
+		}).val(query.generalSearch);
 
 		$('#m_form_status').on('change', function () {
 			datatable.search($(this).val(), 'Status');

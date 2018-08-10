@@ -27,6 +27,7 @@ return [
     'noticias' => 'News',
     'comentarios' => 'Comments',
     'leermas' => 'Read more',
+    'leermenos' => 'Read less',
     'inicio' => 'Home',
     'buscar' => 'Search',
     'actividad' => 'Activity',

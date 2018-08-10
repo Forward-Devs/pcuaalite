@@ -87,7 +87,7 @@ var Typeahead = function() {
         var bestPictures = new Bloodhound({
           datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
           queryTokenizer: Bloodhound.tokenizers.whitespace,
-          prefetch: 'inc/api/typeahead/movies.json'
+          prefetch: 'http://keenthemes.com/metronic/preview/inc/api/typeahead/movies.json'
         });
 
         $('#m_typeahead_4').typeahead(null, {
@@ -109,13 +109,13 @@ var Typeahead = function() {
         var nbaTeams = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('team'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
-            prefetch: 'inc/api/typeahead/nba.json'
+            prefetch: 'http://keenthemes.com/metronic/preview/inc/api/typeahead/nba.json'
         });
 
         var nhlTeams = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('team'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
-            prefetch: 'inc/api/typeahead/nhl.json'
+            prefetch: 'http://keenthemes.com/metronic/preview/inc/api/typeahead/nhl.json'
         });
 
         $('#m_typeahead_5').typeahead({

@@ -38,11 +38,10 @@ var DefaultDatatableDemo = function () {
 			// column sorting
 			sortable: true,
 
-			pagination: true,
+			// column based filtering
+			filterable: false,
 
-			search: {
-				input: $('#generalSearch')
-			},
+			pagination: true,
 
 			// columns definition
 			columns: [{
@@ -69,7 +68,8 @@ var DefaultDatatableDemo = function () {
 				}
 			}, {
 				field: "ShipCity",
-				title: "Ship City"
+				title: "Ship City",
+				sortable: false // disable sort for this column
 			}, {
 				field: "Currency",
 				title: "Currency",
@@ -107,7 +107,7 @@ var DefaultDatatableDemo = function () {
 						2: {'title': 'Retail', 'state': 'primary'},
 						3: {'title': 'Direct', 'state': 'accent'}
 					};
-					return '<span class="m-badge m-badge--' + status[row.Type].state + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.Type].state + '">' + status[row.Type].title + '</span>';
+					return '<span class="m-badge m-badge--' + status[row.Type].state + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.Type].state +'">' + status[row.Type].title + '</span>';
 				}
 			}, {
 				field: "Actions",
@@ -117,9 +117,9 @@ var DefaultDatatableDemo = function () {
 				overflow: 'visible',
 				template: function (row) {
 					var dropup = (row.getDatatable().getPageSize() - row.getIndex()) <= 4 ? 'dropup' : '';
-
+					
 					return '\
-						<div class="dropdown ' + dropup + '">\
+						<div class="dropdown '+ dropup +'">\
 							<a href="#" class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown">\
                                 <i class="la la-ellipsis-h"></i>\
                             </a>\
@@ -142,6 +142,19 @@ var DefaultDatatableDemo = function () {
 
 		var datatable = $('.m_datatable').mDatatable(options);
 
+		var query = datatable.getDataSourceQuery();
+
+		$('#m_form_search').on('keyup', function (e) {
+			// shortcode to datatable.getDataSourceParam('query');
+			var query = datatable.getDataSourceQuery();
+			query.generalSearch = $(this).val().toLowerCase();
+			// shortcode to datatable.setDataSourceParam('query', query);
+			datatable.setDataSourceQuery(query);
+			datatable.load();
+		}).val(query.generalSearch);
+
+		$('#m_form_status, #m_form_type').selectpicker();
+
 		$('#m_datatable_destroy').on('click', function () {
 			datatable.destroy();
 		});
@@ -155,13 +168,12 @@ var DefaultDatatableDemo = function () {
 		});
 
 		$('#m_datatable_sort').on('click', function () {
-			// sort
-			datatable.sort('ShipCity');
+			// sort by ShipAddress
+			datatable.sort('ShipAddress');
 		});
 
 		$('#m_datatable_get').on('click', function () {
-			// get checked record and get value by column name
-			var value = datatable.setSelectedRecords().getColumn('ShipCity').getValue();
+			var value = datatable.setSelectedRecords().getColumn('CompanyAgent').getValue();
 			if (value === '') value = 'Select checbox';
 			$('#datatable_value').html(value);
 		});
@@ -178,14 +190,6 @@ var DefaultDatatableDemo = function () {
 
 		$('#m_datatable_uncheck_all').on('click', function () {
 			datatable.setActiveAll(false);
-		});
-
-		$('#m_datatable_hide_column').on('click', function () {
-			datatable.hideColumn('Currency');
-		});
-
-		$('#m_datatable_show_column').on('click', function () {
-      datatable.showColumn('Currency');
 		});
 	};
 

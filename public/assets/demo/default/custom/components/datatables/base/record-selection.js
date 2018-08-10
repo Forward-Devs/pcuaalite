@@ -29,7 +29,7 @@ var DatatableRecordSelectionDemo = function () {
 			layout: {
 				theme: 'default', // datatable theme
 				class: '', // custom wrapper class
-				scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+				scroll: false, // enable/disable datatable scroll both horizontal and vertical when needed.
 				height: 550, // datatable's body's fixed height
 				footer: false // display/hide footer
 			},
@@ -37,11 +37,10 @@ var DatatableRecordSelectionDemo = function () {
 			// column sorting
 			sortable: true,
 
-			pagination: true,
+			// column based filtering
+			filterable: false,
 
-			search: {
-				input: $('#generalSearch')
-			},
+			pagination: true,
 
 			// columns definition
 			columns: [{
@@ -120,7 +119,7 @@ var DatatableRecordSelectionDemo = function () {
 					var dropup = (row.getDatatable().getPageSize() - row.getIndex()) <= 4 ? 'dropup' : '';
 
 					return '\
-						<div class="dropdown ' + dropup + '">\
+						<div class="dropdown '+ dropup +'">\
 							<a href="#" class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown">\
                                 <i class="la la-ellipsis-h"></i>\
                             </a>\
@@ -142,6 +141,15 @@ var DatatableRecordSelectionDemo = function () {
 		});
 
 		var query = datatable.getDataSourceQuery();
+
+		$('#m_form_search').on('keyup', function (e) {
+			// shortcode to datatable.getDataSourceParam('query');
+			var query = datatable.getDataSourceQuery();
+			query.generalSearch = $(this).val().toLowerCase();
+			// shortcode to datatable.setDataSourceParam('query', query);
+			datatable.setDataSourceQuery(query);
+			datatable.load();
+		}).val(query.generalSearch);
 
 		$('#m_form_status').on('change', function () {
 			// shortcode to datatable.getDataSourceParam('query');
@@ -166,14 +174,14 @@ var DatatableRecordSelectionDemo = function () {
 		// on checkbox checked event
 		$('.m_datatable')
 			.on('m-datatable--on-check', function (e, args) {
-				var count = datatable.getSelectedRecords().length;
+				var count = datatable.setSelectedRecords().getSelectedRecords().length;
 				$('#m_datatable_selected_number').html(count);
 				if (count > 0) {
 					$('#m_datatable_group_action_form').collapse('show');
 				}
 			})
 			.on('m-datatable--on-uncheck m-datatable--on-layout-updated', function (e, args) {
-				var count = datatable.getSelectedRecords().length;
+				var count = datatable.setSelectedRecords().getSelectedRecords().length;
 				$('#m_datatable_selected_number').html(count);
 				if (count === 0) {
 					$('#m_datatable_group_action_form').collapse('hide');

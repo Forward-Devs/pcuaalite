@@ -57,7 +57,14 @@
 
               </a>
             </li>
-
+            <li class="m-nav__item">
+              <a href="{{url('mensajes')}}" class="m-nav__link">
+                <i class="m-nav__link-icon flaticon-chat-1"></i>
+                <span class="m-nav__link-text">
+                  {{__('web.mensajes')}}
+                </span>
+              </a>
+            </li>
             @if (Auth::user()->isAdmin())
             <li class="m-nav__separator m-nav__separator--fit"></li>
               <li class="m-nav__item">
@@ -76,7 +83,14 @@
             @endif
 
             <li class="m-nav__separator m-nav__separator--fit"></li>
-
+            <li class="m-nav__item">
+              <a href="{{url('faq')}}" class="m-nav__link">
+                <i class="m-nav__link-icon flaticon-info"></i>
+                <span class="m-nav__link-text">
+                  FAQ
+                </span>
+              </a>
+            </li>
             <li class="m-nav__item">
               <a href="{{url('tickets')}}" class="m-nav__link">
                 <i class="m-nav__link-icon flaticon-lifebuoy"></i>
@@ -85,7 +99,14 @@
                 </span>
               </a>
             </li>
-            
+            <li class="m-nav__item">
+              <a href="{{url('reporte')}}" class="m-nav__link">
+                <i class="m-nav__link-icon flaticon-lifebuoy"></i>
+                <span class="m-nav__link-text">
+                  {{__('web.reportes')}}
+                </span>
+              </a>
+            </li>
             <li class="m-nav__separator m-nav__separator--fit"></li>
             <li class="m-nav__item">
                 <a href="{{ route('logout') }}" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder"

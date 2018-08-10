@@ -15,8 +15,10 @@ class DatabaseSeeder extends Seeder
         Usuario::class,
         Configuraciones::class,
         Noticias::class,
+        Shouts::class,
         Actividades::class,
         Problemas::class,
+        Carrusel::class,
   ]);
     }
 }

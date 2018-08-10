@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/server', 'ServerController@index')->name('server');
 Route::group(
 [
 	'prefix' => LaravelLocalization::setLocale(),
@@ -19,7 +20,11 @@ function()
 {
 Carbon::setLocale(LaravelLocalization::setLocale());
 
-Route::get('/', function () { return view('lite.inicio'); })->name('inicio')->middleware('Instalado');
+Route::get('/', function () { return view('inicio'); })->name('inicio');
+Route::get('/PCA/jugadores', function () {
+    return view('tablas');
+});
+Route::get('/shouts', function () { return view('shouts'); })->name('shouts')->middleware('Instalado');
 Route::get('/noticias', function () { return view('noticias'); })->name('noticias')->middleware('Instalado');
 Route::get('/buscar', function (Request $request) {
 		return view('request.buscar');
@@ -39,20 +44,35 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/actividad', 'UserController@verActividad')->name('actividad');
+Route::get('/faq', 'SoporteController@verFAQ')->name('faq');
+Route::get('/soporte', 'UserController@verSoporte')->name('soporte');
+Route::get('/mensajes', 'UserController@verMensajes')->name('mensajes');
 Route::get('/vincular', 'UserController@vincular')->name('vincular');
+
+Route::get('/conversacion/{id}', 'UserController@verConversacion')->name('conversacion');
 Route::get('/user/{usuario?}', 'UserController@index')->name('profile');
+Route::post('/shoutear', 'UserController@shoutear')->name('shoutear');
+
+
+Route::get('/borrarshout/{shout}', 'UserController@borrarshout')->name('borrarshout');
+Route::post('/seguir/{id}', 'UserController@seguir')->name('seguir');
+
 Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
 Route::get('MarkAllSeen' ,'HomeController@AllSeen');
 Route::resource('tickets', 'TicketController');
+Route::resource('reporte', 'ReporteController');
 Route::post('/responder/{id}', 'TicketController@responder')->name('responder');
-
+Route::post('/responderreporte/{id}', 'ReporteController@responder')->name('responderreporte');
 Route::prefix('pca')->group(function () {
     Route::get('/', 'AdminController@index')->name('pca');
 		Route::get('/tickets', 'AdminController@tickets')->name('tickets');
 		Route::resource('noticias', 'AdminNoticias');
+		Route::resource('faqs', 'FAQSAdmin');
 		Route::get('/cuenta', 'AdminController@cuenta')->name('cuenta');
 		Route::resource('ajustes', 'AjustesController');
 		Route::post('/cambiarpass', 'AdminController@cambiarcontrase')->name('cambiarpass');
+		Route::resource('sliders', 'slidersController');
+		Route::resource('reportes', 'reportesController');
 		Route::resource('users', 'usersController');
 		Route::resource('paginas', 'paginasController');
 		Route::get('/tablaig', 'AdminController@tablaig')->name('tablaig');
@@ -60,7 +80,10 @@ Route::prefix('pca')->group(function () {
 		Route::get('/camposig', 'AdminController@camposig')->name('camposig');
 		Route::post('/cambiarcamposig', 'AdminController@cambiarcamposig')->name('cambiarcamposig');
 });
+Route::post('/enviarmensaje', 'UserController@enviarmensaje')->name('enviarmensaje');
 Route::post('/vincularjugador', 'UserController@vincularjugador')->name('vincularjugador');
+Route::post('/conversacion', 'UserController@verConversacion')->name('conversacion');
+Route::get('autocomplete', 'ReporteController@dataAjax');
 Route::post('/cambiarpassuser', 'UserController@cambiarcontrase')->name('cambiarpassuser');
 Route::get('/vista', 'PageController@vista')->name('vista');
 Route::get('/{slug}', array('as' => 'page.show', 'uses' => 'PageController@show'));

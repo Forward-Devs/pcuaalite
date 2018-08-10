@@ -38,10 +38,6 @@ var DefaultDatatableDemo = function () {
 
 			pagination: true,
 
-			search: {
-				input: $('#generalSearch')
-			},
-
 			columns: [{
 				field: "RecordID",
 				title: "#",
@@ -146,7 +142,7 @@ var DefaultDatatableDemo = function () {
 						2: {'title': 'Retail', 'state': 'primary'},
 						3: {'title': 'Direct', 'state': 'accent'}
 					};
-					return '<span class="m-badge m-badge--' + status[row.Type].state + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.Type].state + '">' + status[row.Type].title + '</span>';
+					return '<span class="m-badge m-badge--' + status[row.Type].state + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.Type].state +'">' + status[row.Type].title + '</span>';
 				}
 			}, {
 				field: "Actions",
@@ -157,9 +153,9 @@ var DefaultDatatableDemo = function () {
 				overflow: 'visible',
 				template: function (row) {
 					var dropup = (row.getDatatable().getPageSize() - row.getIndex()) <= 4 ? 'dropup' : '';
-
+					
 					return '\
-						<div class="dropdown ' + dropup + '">\
+						<div class="dropdown '+ dropup +'">\
 							<a href="#" class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown">\
                                 <i class="la la-ellipsis-h"></i>\
                             </a>\
@@ -179,6 +175,20 @@ var DefaultDatatableDemo = function () {
 				}
 			}]
 		});
+
+		var query = datatable.getDataSourceQuery();
+
+		$('#m_form_search').on('keyup', function (e) {
+			// shortcode to datatable.getDataSourceParam('query');
+			var query = datatable.getDataSourceQuery();
+			query.generalSearch = $(this).val().toLowerCase();
+			// shortcode to datatable.setDataSourceParam('query', query);
+			datatable.setDataSourceQuery(query);
+			datatable.load();
+		}).val(query.generalSearch);
+
+		$('#m_form_status, #m_form_type').selectpicker();
+
 	};
 
 	return {

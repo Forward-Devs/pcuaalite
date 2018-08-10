@@ -3,7 +3,11 @@
   @php
   $noticias = Noticia::orderBy('id', 'desc')->simplePaginate(10);
   $hnoticias = Noticia::orderBy('id', 'desc')->count();
-
+  $shout = Shout::orderBy('id', 'desc')->first();
+  $hshouts = Shout::orderBy('id', 'desc')->count();
+  if ($hshouts) {
+    $usershout = User::find($shout->user_id);
+  }
   function getSubStrings($string, $length=NULL)
 {
   if ($length == NULL)

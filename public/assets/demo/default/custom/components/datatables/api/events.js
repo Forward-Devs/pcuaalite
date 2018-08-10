@@ -34,7 +34,7 @@ var DefaultDatatableDemo = function () {
 				footer: false // display/hide footer
 			},
 
-			// column sorting
+			// column sorting(refer to Kendo UI)
 			sortable: true,
 
 			// toolbar
@@ -50,10 +50,6 @@ var DefaultDatatableDemo = function () {
 						pageSizeSelect: [5, 10, 20, 30, 50] // display dropdown to select pagination size. -1 is used for "ALl" option
 					},
 				}
-			},
-
-			search: {
-				input: $('#generalSearch')
 			},
 
 			// columns definition
@@ -153,6 +149,20 @@ var DefaultDatatableDemo = function () {
 			}]
 		});
 
+		var query = datatable.getDataSourceQuery();
+
+		$('#m_form_search').on('keyup', function (e) {
+			// shortcode to datatable.getDataSourceParam('query');
+			var query = datatable.getDataSourceQuery();
+			query.generalSearch = $(this).val().toLowerCase();
+			// shortcode to datatable.setDataSourceParam('query', query);
+			datatable.setDataSourceQuery(query);
+			datatable.load();
+		}).val(query.generalSearch);
+
+		$('#m_form_status, #m_form_type').selectpicker();
+
+
 		$('#m_datatable_clear').on('click', function () {
 			$('#m_datatable_console').html('');
 		});
@@ -173,7 +183,7 @@ var DefaultDatatableDemo = function () {
 			.on('m-datatable--on-ajax-done', function () {
 				eventsWriter('Ajax data successfully updated');
 			})
-			.on('m-datatable--on-ajax-fail', function (e, jqXHR) {
+			.on('m-datatable--on-ajax-fail', function () {
 				eventsWriter('Ajax error');
 			})
 			.on('m-datatable--on-goto-page', function (e, args) {

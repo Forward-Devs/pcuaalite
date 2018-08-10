@@ -7,8 +7,11 @@ use User;
 use Log;
 use Auth;
 use Carbon;
+use Reporte;
 use Ticket;
+use Shout;
 use Noticia;
+use Schema;
 use Respuesta;
 
 class usersController extends Controller
@@ -49,19 +52,32 @@ class usersController extends Controller
     {
         //
 
-        $usuario = User::create($request->all());
-        $usuario->password = bcrypt($request->password);
-        $usuario->admin = $request->admin;
-        $usuario->save();
+        if (!$request->name || !$request->email || !$request->password) {
+          return back()->with('message', 'El usuario, email y contraseña son obligatorios en la creación.');
+        }
+        else {
+          $usuario = new User;
+          $usuario->name = $request->name;
+          $usuario->email = $request->email;
+          if ($request->developer != NULL) {
+            $usuario->developer = $request->developer;
+          }
+          $usuario->password = bcrypt($request->password);
+          if ($request->admin != NULL) {
+            $usuario->admin = $request->admin;
+          }
+          $usuario->save();
 
-        $log = new Log();
-        $log->user_id = Auth::user()->id;
-        $log->es = 'Ha creado un User';
-        $log->en = 'Ha creado un User ';
-        $log->fr = 'Ha creado un User';
-        $log->created_at = Carbon::now()->toDateTimeString();
-        $log->save();
-        return redirect('pca/users')->with('message', 'Create un User.');
+          $log = new Log();
+          $log->user_id = Auth::user()->id;
+          $log->es = 'Ha creado un User';
+          $log->en = 'Ha creado un User ';
+          $log->fr = 'Ha creado un User';
+          $log->created_at = Carbon::now()->toDateTimeString();
+          $log->save();
+          return redirect('pca/users')->with('message', 'Create la cuenta de '.$request->name);
+        }
+
     }
 
     /**
@@ -74,7 +90,7 @@ class usersController extends Controller
     {
         //
         $modelo = User::find($id);
-        return view('pca.users.ver', compact('modelo'));
+        return back();
     }
 
     /**
@@ -134,6 +150,8 @@ class usersController extends Controller
     {
         //
         $modelo = User::find($id);
+        $shouts = Shout::where('user_id', $modelo->id)->delete();
+        $reportes = Reporte::where('user_id', $modelo->id)->orWhere('reportado_id', $modelo->id)->delete();
         $tickets = Ticket::where('user_id', $modelo->id)->delete();
         $noticias = Noticia::where('user_id', $modelo->id)->delete();
         $logs = Log::where('user_id', $modelo->id)->delete();

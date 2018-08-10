@@ -86,10 +86,6 @@ var DatatableChildDataLocalDemo = function () {
 				content: subTableInit
 			},
 
-			search: {
-				input: $('#generalSearch')
-			},
-
 			// columns definition
 			columns: [{
 				field: "RecordID",
@@ -139,6 +135,14 @@ var DatatableChildDataLocalDemo = function () {
 				}
 			}]
 		});
+
+		var query = datatable.getDataSourceQuery();
+
+		$('#m_form_search').on('keyup', function (e) {
+			datatable.search($(this).val().toLowerCase());
+		}).val(query.generalSearch);
+
+		$('#m_form_status, #m_form_type').selectpicker();
 
 	};
 

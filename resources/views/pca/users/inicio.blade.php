@@ -109,5 +109,5 @@ $nombres = array_add($nombres, 'developer', 'Desarrollador');
     </div>
     @endsection
     @section('scripts')
-    <script src="{{asset('assets/demo/default/custom/components/datatables/base/html-table.js')}}" type="text/javascript"></script>
+    <script src="{{asset('admin/assets/demo/default/custom/components/datatables/base/html-table.js')}}" type="text/javascript"></script>
     @endsection

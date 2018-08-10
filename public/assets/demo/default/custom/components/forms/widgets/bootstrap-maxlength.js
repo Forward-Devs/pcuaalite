@@ -5,13 +5,13 @@ var BootstrapMaxlength = function () {
     //== Private functions
     var demos = function () {
         // minimum setup
-        $('#m_maxlength_1').maxlength({
+        $('#m_maxlength_1, #m_maxlength_1_modal').maxlength({
             warningClass: "m-badge m-badge--warning m-badge--rounded m-badge--wide",
             limitReachedClass: "m-badge m-badge--success m-badge--rounded m-badge--wide"
         });
 
         // threshold value
-        $('#m_maxlength_2').maxlength({
+        $('#m_maxlength_2, #m_maxlength_2_modal').maxlength({
             threshold: 5,
             warningClass: "m-badge m-badge--danger m-badge--rounded m-badge--wide",
             limitReachedClass: "m-badge m-badge--success m-badge--rounded m-badge--wide"
@@ -26,7 +26,7 @@ var BootstrapMaxlength = function () {
         });
 
         // custom text
-        $('#m_maxlength_4').maxlength({
+        $('#m_maxlength_4, #m_maxlength_4_modal').maxlength({
             threshold: 3,
             warningClass: "m-badge m-badge--danger m-badge--rounded m-badge--wide",
             limitReachedClass: "m-badge m-badge--success m-badge--rounded m-badge--wide",
@@ -37,7 +37,7 @@ var BootstrapMaxlength = function () {
         });
 
         // textarea example
-        $('#m_maxlength_5').maxlength({
+        $('#m_maxlength_5, #m_maxlength_5_modal').maxlength({
             threshold: 5,
             warningClass: "m-badge m-badge--primary m-badge--rounded m-badge--wide",
             limitReachedClass: "m-badge m-badge--brand m-badge--rounded m-badge--wide"
@@ -75,50 +75,12 @@ var BootstrapMaxlength = function () {
             warningClass: "m-badge m-badge--danger m-badge--rounded m-badge--wide",
             limitReachedClass: "m-badge m-badge--brand m-badge--rounded m-badge--wide"
         });
-
-        //== Modal Examples
-
-        // minimum setup
-        $('#m_maxlength_1_modal').maxlength({
-            warningClass: "m-badge m-badge--warning m-badge--rounded m-badge--wide",
-            limitReachedClass: "m-badge m-badge--success m-badge--rounded m-badge--wide",
-            appendToParent: true
-        });
-
-        // threshold value
-        $('#m_maxlength_2_modal').maxlength({
-            threshold: 5,
-            warningClass: "m-badge m-badge--danger m-badge--rounded m-badge--wide",
-            limitReachedClass: "m-badge m-badge--success m-badge--rounded m-badge--wide",
-            appendToParent: true
-        });
-
-        // always show
-        // textarea example
-        $('#m_maxlength_5_modal').maxlength({
-            threshold: 5,
-            warningClass: "m-badge m-badge--primary m-badge--rounded m-badge--wide",
-            limitReachedClass: "m-badge m-badge--brand m-badge--rounded m-badge--wide",
-            appendToParent: true
-        });
-
-        // custom text
-        $('#m_maxlength_4_modal').maxlength({
-            threshold: 3,
-            warningClass: "m-badge m-badge--danger m-badge--rounded m-badge--wide",
-            limitReachedClass: "m-badge m-badge--success m-badge--rounded m-badge--wide",
-            appendToParent: true,
-            separator: ' of ',
-            preText: 'You have ',
-            postText: ' chars remaining.',
-            validate: true
-        });
     }
 
     return {
         // public functions
         init: function() {
-            demos();  
+            demos(); 
         }
     };
 }();

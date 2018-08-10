@@ -13,7 +13,7 @@ class Usuario extends Seeder
     {
         //
         DB::table('users')->insert([
-          'name' => 'Admin',
+          'name' => 'Jim_Street',
           'email' => 'admin@pcu.com',
           'password' => '$2y$10$iny5nGfFISQpSH.cUAEG2.9Gx.iIZv9eJji2V.DDBBU4oDQhaWqTy', //adminpcu
           'admin' => '1',

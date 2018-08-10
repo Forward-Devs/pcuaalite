@@ -1,6 +1,6 @@
 
 @php
-  $crecimiento = App\Helpers\Funciones::getPercent($modelo);
+  $crecimiento = App\Helpers\Funciones::porcentaje($modelo);
 @endphp
   <div class="m-widget24">
   <div class="m-widget24__item">

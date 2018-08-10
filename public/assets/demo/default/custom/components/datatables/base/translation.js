@@ -37,11 +37,10 @@ var DatatableTranslationDemo = function () {
 			// column sorting
 			sortable: true,
 
-			pagination: true,
+			// column based filtering
+			filterable: false,
 
-			search: {
-				input: $('#generalSearch')
-			},
+			pagination: true,
 
 			// columns definition
 			columns: [{
@@ -101,6 +100,19 @@ var DatatableTranslationDemo = function () {
 				}
 			}
 		});
+
+		var query = datatable.getDataSourceQuery();
+
+		$('#m_form_search').on('keyup', function (e) {
+			// shortcode to datatable.getDataSourceParam('query');
+			var query = datatable.getDataSourceQuery();
+			query.generalSearch = $(this).val().toLowerCase();
+			// shortcode to datatable.setDataSourceParam('query', query);
+			datatable.setDataSourceQuery(query);
+			datatable.load();
+		}).val(query.generalSearch);
+
+		$('#m_form_status, #m_form_type').selectpicker();
 	};
 
 	return {

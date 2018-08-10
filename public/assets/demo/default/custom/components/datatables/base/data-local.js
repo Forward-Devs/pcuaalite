@@ -21,18 +21,17 @@ var DatatableDataLocalDemo = function () {
 				theme: 'default', // datatable theme
 				class: '', // custom wrapper class
 				scroll: false, // enable/disable datatable scroll both horizontal and vertical when needed.
-				// height: 450, // datatable's body's fixed height
+				height: 450, // datatable's body's fixed height
 				footer: false // display/hide footer
 			},
 
-			// column sorting
+			// column sorting(refer to Kendo UI)
 			sortable: true,
 
-			pagination: true,
+			// column based filtering(refer to Kendo UI)
+			filterable: false,
 
-			search: {
-				input: $('#generalSearch')
-			},
+			pagination: true,
 
 			// inline and bactch editing(cooming soon)
 			// editable: false,
@@ -62,13 +61,7 @@ var DatatableDataLocalDemo = function () {
 				responsive: {visible: 'lg'}
 			}, {
 				field: "ShipDate",
-				title: "Ship Date",
-				type: "date",
-				format: "MM/DD/YYYY"
-			}, {
-				field: "Latitude",
-				title: "Latitude",
-				type: "number"
+				title: "Ship Date"
 			}, {
 				field: "Status",
 				title: "Status",
@@ -107,7 +100,7 @@ var DatatableDataLocalDemo = function () {
 					var dropup = (row.getDatatable().getPageSize() - row.getIndex()) <= 4 ? 'dropup' : '';
 
 					return '\
-						<div class="dropdown ' + dropup + '">\
+						<div class="dropdown '+ dropup +'">\
 							<a href="#" class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown">\
                                 <i class="la la-ellipsis-h"></i>\
                             </a>\
@@ -126,6 +119,10 @@ var DatatableDataLocalDemo = function () {
 		});
 
 		var query = datatable.getDataSourceQuery();
+
+		$('#m_form_search').on('keyup', function (e) {
+			datatable.search($(this).val().toLowerCase());
+		}).val(query.generalSearch);
 
 		$('#m_form_status').on('change', function () {
 			datatable.search($(this).val(), 'Status');

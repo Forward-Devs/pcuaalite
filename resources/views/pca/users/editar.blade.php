@@ -35,7 +35,7 @@ $nombres = array_add($nombres, 'developer', 'Desarrollador');
           @if ($columna != 'id' && $columna != 'created_at'&& $columna != 'updated_at')
             <div class="form-group m-form__group">
               <label for="p_es">{{$nombres[$columna]}}</label>
-              <input class="form-control m-input" type="text" name="{{$columna}}" value="{{$modelo->$columna}}">
+              <input class="form-control m-input" type="text" name="{{$columna}}" value="{{$modelo->$columna}}" @if ($columna == 'name' || $columna == 'email' || $columna == 'password') required @endif >
               <span class="m-form__help">Escriba el valor de: {{$nombres[$columna]}}</span>
             </div>
           @endif

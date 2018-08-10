@@ -6,7 +6,7 @@
   @php
   $leng = LaravelLocalization::setLocale();
   $titulo = 'titulo_'.$leng;
-
+  $usern = User::find($noticia->user_id);
   @endphp
 <div class="row">
   <div class="m-portlet m-portlet--bordered-semi m-portlet--full-height">
@@ -31,11 +31,11 @@
         <div class="m-widget19__content">
           <div class="m-widget19__header">
             <div class="m-widget19__user-img">
-              <img class="m-widget19__img" src="{{asset($noticia->user->avatar)}}" alt="">
+              <img class="m-widget19__img" src="{{asset($usern->avatar)}}" alt="">
             </div>
             <div class="m-widget19__info">
               <span class="m-widget19__username">
-                {{$noticia->user->name}}
+                {{$usern->name}}
               </span>
               <br>
               <span class="m-widget19__time">

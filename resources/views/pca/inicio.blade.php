@@ -3,13 +3,18 @@
   <div class="m-portlet ">
     <div class="m-portlet__body  m-portlet__body--no-padding">
       <div class="row m-row--no-padding m-row--col-separator-xl">
-        <div class="col-md-12 col-lg-6 col-xl-6">
+        <div class="col-md-12 col-lg-6 col-xl-3">
           @include('pca.ext.estadisticas', ['nombre' => "Usuarios", 'cantidad' => User::all()->count(), 'modelo' => User::all(), 'color' => 'brand']);
         </div>
-        <div class="col-md-12 col-lg-6 col-xl-6">
+        <div class="col-md-12 col-lg-6 col-xl-3">
           @include('pca.ext.estadisticas', ['nombre' => "Tickets", 'cantidad' => Ticket::all()->count(), 'modelo' => Ticket::all(), 'color' => 'info']);
         </div>
-
+        <div class="col-md-12 col-lg-6 col-xl-3">
+          @include('pca.ext.estadisticas', ['nombre' => "Shouts", 'cantidad' => Shout::all()->count(), 'modelo' => Shout::all(), 'color' => 'success']);
+        </div>
+        <div class="col-md-12 col-lg-6 col-xl-3">
+          @include('pca.ext.estadisticas', ['nombre' => "Reportes", 'cantidad' => Reporte::all()->count(), 'modelo' => Reporte::all(), 'color' => 'danger']);
+        </div>
       </div>
     </div>
   </div>
@@ -102,7 +107,37 @@
                       {{Carbon::createFromTimeStamp(strtotime($usuario->created_at))->diffForHumans()}}
                     </span>
                   </div>
+                  <div class="m-widget4__ext">
+                    @auth
+                    @php
+                      $losigue = DB::table('seguidores')->where('user_id', auth()->user()->id)->where('follow_id', $usuario->id)->count();
+                    @endphp
+                    @if ($losigue)
+                      <form action="{{action('UserController@seguir', ['id' => $usuario->id])}}" id="formseguir" method="post">
+                        <input type="hidden" id="usuario" name="usuario" value="{{$usuario->id}}">
+                        {{ csrf_field() }}
+                        {{ method_field('POST') }}
+                        <button type="submit" id="seguir" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
+                          <div id="sigue">
+                            {{__('web.noseguir')}}
+                          </div>
+                        </button>
+                      </form>
+                    @else
+                      <form action="{{action('UserController@seguir', ['id' => $usuario->id])}}" id="formseguir" method="post">
+                        <input type="hidden" id="usuario" name="usuario" value="{{$usuario->id}}">
+                        {{ csrf_field() }}
+                        {{ method_field('POST') }}
+                        <button type="submit" id="seguir" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
+                          <div id="sigue">
+                            {{__('web.seguir')}}
+                          </div>
+                        </button>
+                      </form>
+                  @endif
+                    @endauth
 
+                  </div>
                 </div>
                 @endforeach
 
@@ -117,4 +152,26 @@
     </div>
   </div>
 
+@endsection
+@section('scripts')
+  <script type="text/javascript">
+  $(function () {
+    $('#formseguir').submit(function(e) {
+      e.preventDefault();
+      $.ajax({
+              type: 'POST',
+              url: $(this).attr('action'),
+              data: $(this).serialize(),
+
+              // Mostramos un mensaje con la respuesta de PHP
+              success: function(data) {
+
+                $('#sigue').empty().append(data.mensaje);
+                return false;
+              }
+          });
+          return false;
+    });
+  })
+  </script>
 @endsection

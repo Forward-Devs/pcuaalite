@@ -6,12 +6,15 @@ use Illuminate\Http\Request;
 use DB;
 use Auth;
 use User;
+use Shout;
 use Notification;
 use Actividad;
+use Mensaje;
 use Validator;
 use Hash;
 use Response;
 use View;
+use App\Notifications\CrearShout;
 use StreamLab\StreamLabProvider\Facades\StreamLabFacades;
 class UserController extends Controller
 {
@@ -26,17 +29,24 @@ class UserController extends Controller
     }
     public function verActividad()
     {
-      return view('lite.actividad');
+      return view('actividad');
     }
 
     public function verSoporte()
     {
-      return view('lite.tickets');
+      return view('soporte');
     }
-
+    public function verMensajes()
+    {
+      return view('mensajes');
+    }
+    public function verMensajess()
+    {
+      return view('mensajess');
+    }
     public function vincular()
     {
-      return view('lite.vincular');
+      return view('vincular');
     }
     public function vincularjugador(Request $request)
     {
@@ -77,7 +87,13 @@ class UserController extends Controller
         return back()->with('message', 'Usuario incorrecto');
       }
     }
+    public function verConversacion($id = NULL)
+    {
+      $usuario = $id;
+      $view = view('conversacion', compact('usuario'))->render();
+      return response()->json(['html'=>$view]);
 
+    }
     public function index($usuario = NULL)
     {
       if ($usuario == Auth::user()->name) {
@@ -95,6 +111,96 @@ class UserController extends Controller
         }
       }
 
+    }
+    public function enviarmensaje(Request $request)
+    {
+      Mensaje::insert([
+        'user_id' => Auth::user()->id,
+        'to_id' => $request->to,
+        'mensaje' => $request->mensaje,
+      ]);
+      return Response::json(array(
+                    'success' => true,
+                    'mensaje' => $request->mensaje,
+            ));
+    }
+    public function shoutear(Request $request)
+    {
+      $shout = new Shout();
+      $shout->user_id = Auth::user()->id;
+      $shout->shout = $request->shout;
+      $shout->created_at = \Carbon::now()->toDateTimeString();
+      if ($shout->save()) {
+        Actividad::insert([
+          'user_id' => Auth::user()->id,
+          'es' => 'creó el shout "'.$shout->shout.'".',
+          'en' => 'created the shout "'.$shout->shout.'".',
+          'fr' => 'créé le shout "'.$shout->shout.'".',
+        ]);
+        $losigue = DB::table('seguidores')->where('follow_id', Auth::user()->id)->get();
+        foreach ($losigue as $seguidor) {
+          $user = User::find($seguidor->user_id);
+          Notification::send($user , new CrearShout($shout));
+          $data = "".auth()->user()->name ." ha shouteado: " . $shout->shout;
+          StreamLabFacades::pushMessage('nots' , 'CrearShout' , $data);
+        }
+
+      }
+      return back()->with('message', 'Shout enviado.');
+    }
+    public function borrarshout($shout = NULL)
+    {
+      $shoutd = DB::table('shouts')->where('id', $shout)->first();
+      if ($shoutd->user_id == Auth::user()->id) {
+        Actividad::insert([
+          'user_id' => Auth::user()->id,
+          'es' => 'borro el shout "'.$shoutd->shout.'".',
+          'en' => 'borro el shout "'.$shoutd->shout.'".',
+          'fr' => 'borro el shout "'.$shoutd->shout.'".',
+        ]);
+        DB::table('shouts')->where('id', $shout)->delete();
+
+        return back()->with('message', 'Borraste un shout');
+      }
+      else {
+        return back();
+      }
+
+    }
+    public function seguir(Request $request, $id)
+    {
+      $losigue = DB::table('seguidores')->where('user_id', Auth::user()->id)->where('follow_id', $id)->count();
+      if ($losigue) {
+        DB::table('seguidores')->where('user_id', Auth::user()->id)->where('follow_id', $id)->delete();
+        $seguido = DB::table('users')->where('id', $id)->first();
+        Actividad::insert([
+          'user_id' => Auth::user()->id,
+          'es' => 'dejó de seguir a "'.$seguido->name.'".',
+          'en' => 'stopped following "'.$seguido->name.'".',
+          'fr' => 'arrêté de suivre "'.$seguido->name.'".',
+        ]);
+        return Response::json(array(
+                      'success' => true,
+                      'mensaje' => __('web.seguir'),
+              ));
+      }
+      else {
+        DB::table('seguidores')->insert([
+          'user_id' => Auth::user()->id,
+          'follow_id' => $id
+        ]);
+        $seguido = DB::table('users')->where('id', $id)->first();
+        Actividad::insert([
+          'user_id' => Auth::user()->id,
+          'es' => 'comenzó a seguir a "'.$seguido->name.'".',
+          'en' => 'started to follow "'.$seguido->name.'".',
+          'fr' => 'commencé à suivre "'.$seguido->name.'".',
+        ]);
+        return Response::json(array(
+                      'success' => true,
+                      'mensaje' => __('web.noseguir'),
+              ));
+      }
     }
 
     public function cambiarcontrase(Request $request)
@@ -129,12 +235,11 @@ class UserController extends Controller
             $obj_user = User::find($user_id);
             $obj_user->password = Hash::make($request_data['password']);;
             $obj_user->save();
-            return redirect()->route('cuenta')->with('message', 'La configuración se cambió correctamente.');
+            return back()->with('message', 'La configuración se cambió correctamente.');
           }
           else
           {
-            $error = array('current-password' => 'Por favor ingrese una contraseña válida.');
-            return response()->json(array('error' => $error), 400);
+            return back()->with('message', 'Por favor ingrese una contraseña válida.');
           }
         }
       }
