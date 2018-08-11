@@ -42,6 +42,8 @@ No olvidar usar "npm install" para instalar las dependencias de node
 
 Ingresamos a nuestra web, siguiendo este ejemplo deberás ingresar a "http://localhost/pcu/public"
 
+O ejecutamos el comando `php artisan serve` para ingresar a "http://localhost:8000"
+
 Si estás en un hosting recuerda definir el directorio root en la carpeta public.
 
 ## Desarrollado por FR0Z3NH34R7
