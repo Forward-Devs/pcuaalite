@@ -35,6 +35,13 @@ Una vez instalado el proyecto ingresar a la carpeta raíz con CMD, ejemplo `cd p
 1) `php artisan migrate`
 2) `php artisan db:seed`
 
+## 3) Producción y depuración de errores.
+
+Es demasiado importante las configuraciones en entorno de producción.
+Cuando tu página sea visible en la web, es importante cambiar el entorno a producción, para ello deberemos cambiar los siguientes valores de nuestro archivo .env.
+`APP_DEBUG=true` Lo tornaremos a false dejandolo de esta manera: `APP_DEBUG=false`
+`APP_ENV=local` Cambiaremos el entorno a "production" dejandolo de esta manera: `APP_ENV=production`
+
 ## NPM
  
 No olvidar usar "npm install" para instalar las dependencias de node
