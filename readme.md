@@ -1,4 +1,9 @@
-# PCUAA Lite v1.1.1
+# PCUAA Lite v1.1.2
+
+[![Latest Stable Version](https://poser.pugx.org/forwarddevs/pcuaalite/v/stable)](https://packagist.org/packages/forwarddevs/pcuaalite)
+[![Total Downloads](https://poser.pugx.org/forwarddevs/pcuaalite/downloads)](https://packagist.org/packages/forwarddevs/pcuaalite)
+[![Latest Unstable Version](https://poser.pugx.org/forwarddevs/pcuaalite/v/unstable)](https://packagist.org/packages/forwarddevs/pcuaalite)
+[![License](https://poser.pugx.org/forwarddevs/pcuaalite/license)](https://packagist.org/packages/forwarddevs/pcuaalite)
 
 Es la versión gratuita de PCUAA , un panel de control de usuarios para SAMP automático, se adapta fácilmente a cualquier Gamemode.
 
@@ -23,7 +28,7 @@ En la carpeta raíz del proyecto nos encontraremos con el archivo ".env".
 
 Debemos crear una base de datos y configurarla.
 
-Remplazar los valores de 
+Remplazar los valores de
 `DB_HOST` por el HOST de nuestra database.
 `DB_DATABASE` por el nombre de la database.
 `DB_USERNAME` por el usuario.
@@ -36,7 +41,7 @@ Una vez instalado el proyecto ingresar a la carpeta raíz con CMD, ejemplo `cd p
 2) `php artisan db:seed`
 
 ## NPM
- 
+
 No olvidar usar "npm install" para instalar las dependencias de node
 ## Run/Ejecutar
 
